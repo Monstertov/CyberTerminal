@@ -10,13 +10,14 @@ A terminal-style web interface with a cyberpunk aesthetic. Built for developers 
 
 ## What's Inside
 
-- Terminal window with macOS-style controls
+- Terminal window with theme controls
 - Animated typing effects
 - Neon glow effects
 - Cyberpunk-styled form inputs
 - Live debug console
 - Mobile-friendly design
 - Simple login system
+- Easy theme switching (Green, Blue, Pink)
 
 ## Getting Started
 

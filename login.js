@@ -6,7 +6,6 @@ function showDebug(message) {
         minute: '2-digit',
         second: '2-digit'
     });
-    console.log(`[${timestamp}] ${message}`);
     const debugDiv = document.getElementById('debug');
     if (debugDiv) {
         const messageDiv = document.createElement('div');
@@ -115,27 +114,79 @@ async function handleLogin() {
     statusDiv.style.display = 'block';
 }
 
-// Add event listener to the login button
-document.getElementById('loginButton').addEventListener('click', handleLogin);
+// Function to switch theme
+function switchTheme(theme) {
+    const root = document.documentElement;
+    if (theme === 'blue') {
+        root.style.setProperty('--primary-color', '#0066ff');
+        root.style.setProperty('--primary-hover', '#3399ff');
+        root.style.setProperty('--success-color', '#0066ff');
+        root.style.setProperty('--text-color', '#0066ff');
+        root.style.setProperty('--border-color', '#0066ff');
+        root.style.setProperty('--glow-color', 'rgba(0, 102, 255, 0.3)');
+        root.style.setProperty('--bg-color', '#000000');
+        root.style.setProperty('--surface-color', 'rgba(0, 10, 0, 0.85)');
+        root.style.setProperty('--grid-color', 'rgba(0, 102, 255, 0.15)');
+        root.style.setProperty('--box-shadow', '0 4px 6px rgba(0, 102, 255, 0.2)');
+    } else if (theme === 'pink') {
+        root.style.setProperty('--primary-color', '#ff69b4');
+        root.style.setProperty('--primary-hover', '#ff1493');
+        root.style.setProperty('--success-color', '#ff69b4');
+        root.style.setProperty('--text-color', '#ff69b4');
+        root.style.setProperty('--border-color', '#ff69b4');
+        root.style.setProperty('--glow-color', 'rgba(255, 105, 180, 0.3)');
+        root.style.setProperty('--bg-color', '#000000');
+        root.style.setProperty('--surface-color', 'rgba(0, 10, 0, 0.85)');
+        root.style.setProperty('--grid-color', 'rgba(255, 105, 180, 0.15)');
+        root.style.setProperty('--box-shadow', '0 4px 6px rgba(255, 105, 180, 0.2)');
+    } else {
+        root.style.setProperty('--primary-color', '#00ff41');
+        root.style.setProperty('--primary-hover', '#39ff14');
+        root.style.setProperty('--success-color', '#00ff41');
+        root.style.setProperty('--text-color', '#00ff41');
+        root.style.setProperty('--border-color', '#00ff41');
+        root.style.setProperty('--glow-color', 'rgba(0, 255, 65, 0.3)');
+        root.style.setProperty('--bg-color', '#000000');
+        root.style.setProperty('--surface-color', 'rgba(0, 10, 0, 0.85)');
+        root.style.setProperty('--grid-color', 'rgba(0, 255, 65, 0.15)');
+        root.style.setProperty('--box-shadow', '0 4px 6px rgba(0, 255, 65, 0.2)');
+    }
+    // Store the theme preference
+    localStorage.setItem('theme', theme);
+}
 
-// Add typing effect to input fields
-document.getElementById('username').addEventListener('focus', function() {
-    this.placeholder = '';
-});
+// Initialize everything when the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Add event listeners to control buttons
+    const closeBtn = document.querySelector('.close');
+    const minimizeBtn = document.querySelector('.minimize');
+    const maximizeBtn = document.querySelector('.maximize');
 
-document.getElementById('password').addEventListener('focus', function() {
-    this.placeholder = '';
-});
+    closeBtn.addEventListener('click', () => switchTheme('green'));
+    minimizeBtn.addEventListener('click', () => switchTheme('blue'));
+    maximizeBtn.addEventListener('click', () => switchTheme('pink'));
 
-// Add cursor blink effect to inputs
-const inputs = document.querySelectorAll('input');
-inputs.forEach(input => {
-    input.style.caretColor = 'var(--primary-color)';
-});
+    // Add event listener to the login button
+    document.getElementById('loginButton').addEventListener('click', handleLogin);
 
-// Add Enter key functionality
-document.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        handleLogin();
+    // Add typing effect to input fields
+    document.getElementById('username').addEventListener('focus', function() {
+        this.placeholder = '';
+    });
+
+    document.getElementById('password').addEventListener('focus', function() {
+        this.placeholder = '';
+    });
+
+    // Add cursor blink effect to inputs
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.style.caretColor = 'var(--primary-color)';
+    });
+
+    // Restore saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        switchTheme(savedTheme);
     }
 }); 
