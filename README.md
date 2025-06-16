@@ -14,7 +14,7 @@ A terminal-style web interface with a cyberpunk aesthetic. Built for developers 
 - Cyberpunk-styled form inputs
 - Live debug console
 - Mobile-friendly design
-- Login system with JWT support
+- Simple login system
 
 ## Getting Started
 
@@ -36,48 +36,13 @@ The interface expects a simple JSON API. Here's a basic PHP example:
 <?php
 // auth.php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
+$data = json_decode(file_get_contents('php://input'), true);
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
-    exit();
-}
-
-$json = file_get_contents('php://input');
-$data = json_decode($json, true);
-
-if (!isset($data['username']) || !isset($data['password'])) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Missing credentials']);
-    exit();
-}
-
-try {
-    // Add your auth logic here
-    // Example with MySQL:
-    // $db = new PDO('mysql:host=localhost;dbname=your_db', 'user', 'password');
-    // $stmt = $db->prepare('SELECT * FROM users WHERE username = ? AND password = ?');
-    // $stmt->execute([$data['username'], hash('sha256', $data['password'])]);
-    
-    echo json_encode([
-        'success' => true,
-        'message' => 'Authentication successful',
-        'token' => 'your_jwt_token_here'
-    ]);
-} catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Authentication failed'
-    ]);
+if ($data['username'] === 'admin' && $data['password'] === 'admin123') {
+    echo json_encode(['success' => true]);
+} else {
+    echo json_encode(['success' => false]);
 }
 ?>
 ```
