@@ -6,6 +6,8 @@
 
 A terminal-style web interface with a cyberpunk aesthetic. Built for developers who want to add a retro-futuristic feel to their web applications.
 
+[Live Demo](https://monstertov.github.io/CyberTerminal/)
+
 <img src="https://tov.monster/host/interface.png?v=2" alt="Interface" style="max-width: 400px;" />
 
 ## What's Inside
