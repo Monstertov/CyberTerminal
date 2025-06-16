@@ -6,7 +6,7 @@
 
 A terminal-style web interface with a cyberpunk aesthetic. Built for developers who want to add a retro-futuristic feel to their web applications.
 
-<img src="https://tov.monster/host/interface.png" alt="Interface" style="max-width: 400px;" />
+<img src="https://tov.monster/host/interface.png?v=2" alt="Interface" style="max-width: 400px;" />
 
 ## What's Inside
 
@@ -14,7 +14,6 @@ A terminal-style web interface with a cyberpunk aesthetic. Built for developers 
 - Animated typing effects
 - Neon glow effects
 - Cyberpunk-styled form inputs
-- Live debug console
 - Mobile-friendly design
 - Simple login system
 - Easy theme switching (Green, Blue, Pink)
@@ -64,19 +63,50 @@ const response = await fetch('auth.php', {
 
 ## Styling
 
-The interface uses CSS variables for easy customization. Edit these in `style.css`:
+The interface uses a theme system that can be customized in two ways:
 
-```css
-:root {
-    --primary-color: #00ff41;    /* Neon green */
-    --primary-hover: #39ff14;    /* Brighter green */
-    --text-color: #00ff41;       /* Text color */
-    --bg-color: #000000;         /* Black background */
-    --surface-color: rgba(0, 20, 0, 0.95);  /* Terminal background */
-    --input-bg: rgba(0, 0, 0, 0.8);         /* Input background */
-    --border-color: #00ff41;     /* Border color */
-    --glow-color: rgba(0, 255, 65, 0.5);    /* Glow effect */
-}
+### 1. Using Existing Themes
+
+The interface comes with three built-in themes:
+- Green (default): Cyberpunk green
+- Blue: Electric blue
+- Pink: Neon pink
+
+Switch themes by clicking the colored dots in the terminal header:
+- Green dot: Switch to green theme
+- Blue dot: Switch to blue theme
+- Pink dot: Switch to pink theme
+
+### 2. Creating Custom Themes
+
+To create a new theme, add it to the `themes` object in `script.js` and `login.js`:
+
+```javascript
+const themes = {
+    // ... existing themes ...
+    purple: {
+        primary: '#9b4dca',      // Main color
+        primaryHover: '#b366ff', // Hover state
+        success: '#9b4dca',      // Success messages
+        text: '#9b4dca',         // Text color
+        border: '#9b4dca',       // Border color
+        glow: 'rgba(155, 77, 202, 0.3)',  // Glow effect
+        bg: '#000000',           // Background
+        surface: 'rgba(0, 10, 0, 0.85)',  // Terminal surface
+        grid: 'rgba(155, 77, 202, 0.15)', // Grid lines
+        shadow: '0 4px 6px rgba(155, 77, 202, 0.2)' // Shadows
+    }
+};
+```
+
+Then add a button to switch to your theme:
+
+```javascript
+// Add to your HTML
+<span class="control custom-theme"></span>
+
+// Add to your JavaScript
+document.querySelector('.custom-theme').addEventListener('click', () => switchTheme('purple'));
 ```
 
 ## Browser Support
