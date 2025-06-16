@@ -6,7 +6,7 @@
 
 A terminal-style web interface with a cyberpunk aesthetic. Built for developers who want to add a retro-futuristic feel to their web applications.
 
-<img src="https://tov.monster/host/interface.png" alt="Interface" />
+<img src="https://tov.monster/host/interface.png" alt="Interface" style="max-width: 400px;" />
 
 ## What's Inside
 
