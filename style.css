@@ -1,0 +1,310 @@
+:root {
+    --primary-color: #00ff41;
+    --primary-hover: #39ff14;
+    --success-color: #00ff41;
+    --error-color: #ff3131;
+    --text-color: #00ff41;
+    --border-radius: 4px;
+    --box-shadow: 0 4px 6px rgba(0, 255, 65, 0.2);
+    --transition: all 0.3s ease;
+    --bg-color: #000000;
+    --surface-color: rgba(0, 20, 0, 0.95);
+    --input-bg: rgba(0, 0, 0, 0.8);
+    --border-color: #00ff41;
+    --glow-color: rgba(0, 255, 65, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+body {
+    line-height: 1.6;
+    background: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--text-color);
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(0deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px) 0 0 / 50px 50px,
+        linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px) 0 0 / 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.container {
+    background-color: var(--surface-color);
+    padding: 0;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 20px var(--glow-color);
+    width: 100%;
+    max-width: 800px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    animation: scanline 2s linear infinite;
+}
+
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
+.terminal-header {
+    background-color: rgba(0, 20, 0, 0.95);
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.terminal-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+}
+
+.terminal-controls {
+    display: flex;
+    gap: 8px;
+    margin-right: 15px;
+}
+
+.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.close { background-color: #ff3131; }
+.minimize { background-color: #ffbd2e; }
+.maximize { background-color: #00ff41; }
+
+.terminal-title {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    text-align: center;
+    flex-grow: 1;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+.terminal-content {
+    padding: 20px;
+    position: relative;
+}
+
+.typing-text {
+    color: var(--text-color);
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: typing 0.5s ease forwards;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+.typing-text::before {
+    content: '>';
+    margin-right: 10px;
+    color: var(--primary-color);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+    position: relative;
+}
+
+.form-group::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    opacity: 0.5;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-family: 'Share Tech Mono', monospace;
+    box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.1);
+}
+
+input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+textarea {
+    height: 120px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+button {
+    background-color: transparent;
+    color: var(--text-color);
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: fadeIn 0.5s ease-out 2.1s forwards;
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+    transition: 0.5s;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:hover {
+    background-color: rgba(0, 255, 65, 0.1);
+    text-shadow: 0 0 10px var(--glow-color);
+    box-shadow: 0 0 20px var(--glow-color);
+}
+
+#status {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    display: none;
+    background: rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+#status.show {
+    display: block;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.debug-console {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.1);
+}
+
+.debug-console div {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+.timestamp {
+    color: var(--primary-color);
+    opacity: 0.7;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom scrollbar for debug console */
+.debug-console::-webkit-scrollbar {
+    width: 8px;
+}
+
+.debug-console::-webkit-scrollbar-track {
+    background: var(--surface-color);
+}
+
+.debug-console::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 0 5px var(--glow-color);
+}
+
+.debug-console::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+} 

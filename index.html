@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM_ACCESS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="terminal-header">
+            <div class="terminal-controls">
+                <span class="control close"></span>
+                <span class="control minimize"></span>
+                <span class="control maximize"></span>
+            </div>
+            <div class="terminal-title">PRIVATE_SYSTEM_ACCESS v1.8</div>
+        </div>
+        
+        <div class="terminal-content">
+            <div class="typing-text">> Initializing system...</div>
+            <div class="typing-text">> Loading interface...</div>
+            <div class="typing-text">> Ready for input</div>
+            
+            <div class="form-group">
+                <label for="title">> TARGET_ID:</label>
+                <input type="text" id="title" placeholder="Enter target identifier...">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">> MESSAGE_PAYLOAD:</label>
+                <textarea id="message" placeholder="Enter message payload..."></textarea>
+            </div>
+            
+            <button id="sendButton">EXECUTE_TRANSMISSION</button>
+            
+            <div id="status"></div>
+            <div id="debug" class="debug-console"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
