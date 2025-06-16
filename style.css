@@ -60,7 +60,6 @@ body::before {
     overflow: hidden;
     position: relative;
     z-index: 1;
-    backdrop-filter: blur(5px);
 }
 
 .container::before {
@@ -109,7 +108,6 @@ body::before {
     height: 12px;
     border-radius: 50%;
     display: inline-block;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     cursor: pointer;
     transition: var(--transition);
 }
@@ -120,15 +118,15 @@ body::before {
 }
 
 .close { 
-    background-color: #00ff41;
+    background-color: #00ff41; /* Green */
 }
 
 .minimize { 
-    background-color: #0066ff;
+    background-color: #0066ff; /* Blue */
 }
 
 .maximize { 
-    background-color: #ff69b4;
+    background-color: #ff69b4; /* Pink */
 }
 
 .terminal-title {
@@ -142,6 +140,7 @@ body::before {
 .terminal-content {
     padding: 20px;
     position: relative;
+    background-color: var(--surface-color);
 }
 
 .typing-text {

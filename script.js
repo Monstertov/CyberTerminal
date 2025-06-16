@@ -1,3 +1,57 @@
+// Theme configurations
+const themes = {
+    green: {
+        primary: '#00ff41',
+        primaryHover: '#39ff14',
+        success: '#00ff41',
+        text: '#00ff41',
+        border: '#00ff41',
+        glow: 'rgba(0, 255, 65, 0.3)',
+        bg: '#000000',
+        surface: 'rgba(0, 10, 0, 0.85)',
+        grid: 'rgba(0, 255, 65, 0.15)',
+        shadow: '0 4px 6px rgba(0, 255, 65, 0.2)'
+    },
+    blue: {
+        primary: '#0066ff',
+        primaryHover: '#3399ff',
+        success: '#0066ff',
+        text: '#0066ff',
+        border: '#0066ff',
+        glow: 'rgba(0, 102, 255, 0.3)',
+        bg: '#000000',
+        surface: 'rgba(0, 10, 0, 0.85)',
+        grid: 'rgba(0, 102, 255, 0.15)',
+        shadow: '0 4px 6px rgba(0, 102, 255, 0.2)'
+    },
+    pink: {
+        primary: '#ff69b4',
+        primaryHover: '#ff1493',
+        success: '#ff69b4',
+        text: '#ff69b4',
+        border: '#ff69b4',
+        glow: 'rgba(255, 105, 180, 0.3)',
+        bg: '#000000',
+        surface: 'rgba(0, 10, 0, 0.85)',
+        grid: 'rgba(255, 105, 180, 0.15)',
+        shadow: '0 4px 6px rgba(255, 105, 180, 0.2)'
+    }
+};
+
+// Function to switch theme
+function switchTheme(theme) {
+    const root = document.documentElement;
+    const themeColors = themes[theme] || themes.green; // Default to green if theme not found
+
+    // Apply all theme colors
+    Object.entries(themeColors).forEach(([key, value]) => {
+        root.style.setProperty(`--${key}-color`, value);
+    });
+
+    // Store the theme preference
+    localStorage.setItem('theme', theme);
+}
+
 // Function to show debug messages with typing effect
 function showDebug(message) {
     const timestamp = new Date().toLocaleTimeString('en-US', { 
@@ -115,57 +169,22 @@ async function handleTransmission() {
     statusDiv.style.display = 'block';
 }
 
-// Function to switch theme
-function switchTheme(theme) {
-    const root = document.documentElement;
-    if (theme === 'blue') {
-        root.style.setProperty('--primary-color', '#0066ff');
-        root.style.setProperty('--primary-hover', '#3399ff');
-        root.style.setProperty('--success-color', '#0066ff');
-        root.style.setProperty('--text-color', '#0066ff');
-        root.style.setProperty('--border-color', '#0066ff');
-        root.style.setProperty('--glow-color', 'rgba(0, 102, 255, 0.3)');
-        root.style.setProperty('--bg-color', '#000000');
-        root.style.setProperty('--surface-color', 'rgba(0, 10, 0, 0.85)');
-        root.style.setProperty('--grid-color', 'rgba(0, 102, 255, 0.15)');
-        root.style.setProperty('--box-shadow', '0 4px 6px rgba(0, 102, 255, 0.2)');
-    } else if (theme === 'pink') {
-        root.style.setProperty('--primary-color', '#ff69b4');
-        root.style.setProperty('--primary-hover', '#ff1493');
-        root.style.setProperty('--success-color', '#ff69b4');
-        root.style.setProperty('--text-color', '#ff69b4');
-        root.style.setProperty('--border-color', '#ff69b4');
-        root.style.setProperty('--glow-color', 'rgba(255, 105, 180, 0.3)');
-        root.style.setProperty('--bg-color', '#000000');
-        root.style.setProperty('--surface-color', 'rgba(0, 10, 0, 0.85)');
-        root.style.setProperty('--grid-color', 'rgba(255, 105, 180, 0.15)');
-        root.style.setProperty('--box-shadow', '0 4px 6px rgba(255, 105, 180, 0.2)');
-    } else {
-        root.style.setProperty('--primary-color', '#00ff41');
-        root.style.setProperty('--primary-hover', '#39ff14');
-        root.style.setProperty('--success-color', '#00ff41');
-        root.style.setProperty('--text-color', '#00ff41');
-        root.style.setProperty('--border-color', '#00ff41');
-        root.style.setProperty('--glow-color', 'rgba(0, 255, 65, 0.3)');
-        root.style.setProperty('--bg-color', '#000000');
-        root.style.setProperty('--surface-color', 'rgba(0, 10, 0, 0.85)');
-        root.style.setProperty('--grid-color', 'rgba(0, 255, 65, 0.15)');
-        root.style.setProperty('--box-shadow', '0 4px 6px rgba(0, 255, 65, 0.2)');
-    }
-    // Store the theme preference
-    localStorage.setItem('theme', theme);
-}
-
 // Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Restore saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        switchTheme(savedTheme);
+    }
+
     // Add event listeners to control buttons
     const closeBtn = document.querySelector('.close');
     const minimizeBtn = document.querySelector('.minimize');
     const maximizeBtn = document.querySelector('.maximize');
 
-    closeBtn.addEventListener('click', () => switchTheme('green'));
-    minimizeBtn.addEventListener('click', () => switchTheme('blue'));
-    maximizeBtn.addEventListener('click', () => switchTheme('pink'));
+    if (closeBtn) closeBtn.addEventListener('click', () => switchTheme('green'));
+    if (minimizeBtn) minimizeBtn.addEventListener('click', () => switchTheme('blue'));
+    if (maximizeBtn) maximizeBtn.addEventListener('click', () => switchTheme('pink'));
 
     // Add event listener to the send button
     document.getElementById('sendButton').addEventListener('click', handleTransmission);
@@ -184,10 +203,4 @@ document.addEventListener('DOMContentLoaded', () => {
     inputs.forEach(input => {
         input.style.caretColor = 'var(--primary-color)';
     });
-
-    // Restore saved theme
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        switchTheme(savedTheme);
-    }
 }); 
