@@ -20,18 +20,6 @@ A terminal-style web interface with a cyberpunk aesthetic. Built for developers 
 - Simple login system
 - Easy theme switching (Green, Blue, Pink)
 
-## Getting Started
-
-```bash
-# Clone the repo
-git clone https://github.com/yourusername/cyberterminal.git
-
-# Open login.html in your browser
-# Default credentials for testing:
-# username: admin
-# password: admin123
-```
-
 ## Backend Setup
 
 The interface expects a simple JSON API. Here's a basic PHP example:
