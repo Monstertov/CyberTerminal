@@ -22,6 +22,8 @@ A terminal-style web interface with a cyberpunk aesthetic. Built for developers 
 
 ## Backend Setup
 
+### Authentication Endpoint
+
 The interface expects a simple JSON API. Here's a basic PHP example:
 
 ```php
@@ -48,6 +50,56 @@ const response = await fetch('auth.php', {
         'Content-Type': 'application/json',
     },
     body: JSON.stringify({ username, password })
+});
+```
+
+### Command Interface Endpoint
+
+For the command interface (index.html), here's a simple PHP endpoint to handle commands:
+
+```php
+<?php
+// command.php
+header('Content-Type: application/json');
+
+$data = json_decode(file_get_contents('php://input'), true);
+
+// Validate input
+if (empty($data['title']) || empty($data['message'])) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Missing required fields'
+    ]);
+    exit;
+}
+
+// Process the command
+try {
+    // Add your command processing logic here
+    // For example: execute system commands, process data, etc.
+    
+    echo json_encode([
+        'success' => true,
+        'message' => 'Command executed successfully'
+    ]);
+} catch (Exception $e) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Command failed: ' . $e->getMessage()
+    ]);
+}
+?>
+```
+
+Update the endpoint in `script.js`:
+
+```javascript
+const response = await fetch('command.php', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ title, message })
 });
 ```
 
