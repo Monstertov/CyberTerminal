@@ -131,4 +131,11 @@ document.getElementById('password').addEventListener('focus', function() {
 const inputs = document.querySelectorAll('input');
 inputs.forEach(input => {
     input.style.caretColor = 'var(--primary-color)';
+});
+
+// Add Enter key functionality
+document.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        handleLogin();
+    }
 }); 
