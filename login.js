@@ -119,44 +119,20 @@ async function handleLogin() {
     showDebug('Initiating authentication sequence...');
     showDebug('Establishing secure connection...');
 
-    try {
-        const response = await fetch('login.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password })
-        });
-
-        showDebug(`Connection status: ${response.status}`);
-
-        const rawResponse = await response.text();
-        let data;
-        try {
-            data = JSON.parse(rawResponse);
-        } catch (e) {
-            showDebug('ERROR: Invalid response format');
-            throw new Error('Invalid server response');
-        }
-
-        if (data.success) {
-            statusDiv.textContent = 'AUTHENTICATION SUCCESSFUL';
-            statusDiv.className = 'success';
-            showDebug('Access granted');
-            
-            // Redirect to main page after successful login
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 2000);
-        } else {
-            statusDiv.textContent = `ERROR: ${data.message}`;
-            statusDiv.className = 'error';
-            showDebug(`Authentication failed: ${data.message}`);
-        }
-    } catch (error) {
-        showDebug('ERROR: Authentication failed');
-        statusDiv.textContent = 'ERROR: Connection terminated';
+    // Demo credentials check
+    if (username === 'demo' && password === 'demo') {
+        statusDiv.textContent = 'AUTHENTICATION SUCCESSFUL';
+        statusDiv.className = 'success';
+        showDebug('Access granted');
+        
+        // Redirect to command page after successful login
+        setTimeout(() => {
+            window.location.href = 'command.html';
+        }, 2000);
+    } else {
+        statusDiv.textContent = 'ERROR: Invalid credentials';
         statusDiv.className = 'error';
+        showDebug('Authentication failed: Invalid credentials');
     }
     
     statusDiv.style.display = 'block';

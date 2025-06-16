@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSTEM_LOGIN</title>
+    <title>SYSTEM_ACCESS</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
@@ -15,31 +15,31 @@
                 <span class="control minimize"></span>
                 <span class="control maximize"></span>
             </div>
-            <div class="terminal-title">SYSTEM_AUTHENTICATION v1.8</div>
+            <div class="terminal-title">PRIVATE_SYSTEM_ACCESS v1.8</div>
         </div>
         
         <div class="terminal-content">
-            <div class="typing-text">> Initializing security protocols...</div>
-            <div class="typing-text">> Loading authentication module...</div>
-            <div class="typing-text">> Ready for credentials</div>
+            <div class="typing-text">> Initializing system...</div>
+            <div class="typing-text">> Loading interface...</div>
+            <div class="typing-text">> Ready for input</div>
             
             <div class="form-group">
-                <label for="username">> USER_IDENTIFIER:</label>
-                <input type="text" id="username" placeholder="Enter user identifier...">
+                <label for="title">> TARGET_ID:</label>
+                <input type="text" id="title" placeholder="Enter target identifier...">
             </div>
             
             <div class="form-group">
-                <label for="password">> ACCESS_KEY:</label>
-                <input type="password" id="password" placeholder="Enter access key...">
+                <label for="message">> MESSAGE_PAYLOAD:</label>
+                <textarea id="message" placeholder="Enter message payload..."></textarea>
             </div>
             
-            <button id="loginButton">AUTHENTICATE</button>
+            <button id="sendButton">EXECUTE_TRANSMISSION</button>
             
             <div id="status"></div>
             <div id="debug" class="debug-console"></div>
         </div>
     </div>
     
-    <script src="login.js"></script>
+    <script src="script.js"></script>
 </body>
 </html> 

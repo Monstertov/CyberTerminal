@@ -8,6 +8,10 @@ A terminal-style web interface with a cyberpunk aesthetic. Built for developers 
 
 [Live Demo](https://monstertov.github.io/CyberTerminal/)
 
+Demo Credentials:
+- Username: `demo`
+- Password: `demo`
+
 <img src="https://tov.monster/host/interface.png?v=2" alt="Interface" style="max-width: 400px;" />
 
 ## What's Inside
@@ -22,45 +26,101 @@ A terminal-style web interface with a cyberpunk aesthetic. Built for developers 
 
 ## Backend Setup
 
+### Removing Demo Login
+
+To remove the demo login and implement your own authentication:
+
+1. Open `login.js` and locate the `handleLogin` function
+2. Replace the demo credentials check with your backend API call:
+
+```javascript
+// Replace this:
+if (username === 'demo' && password === 'demo') {
+    // ... demo login code ...
+}
+
+// With this:
+try {
+    const response = await fetch('your-auth-endpoint.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+    if (data.success) {
+        // ... success handling ...
+    } else {
+        // ... error handling ...
+    }
+} catch (error) {
+    // ... error handling ...
+}
+```
+
 ### Authentication Endpoint
 
-The interface expects a simple JSON API. Here's a basic PHP example:
+Here's a basic PHP authentication endpoint example:
 
 ```php
 <?php
 // auth.php
 header('Content-Type: application/json');
 
+// Enable CORS if needed
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
+
 $data = json_decode(file_get_contents('php://input'), true);
 
-if ($data['username'] === 'admin' && $data['password'] === 'admin123') {
-    echo json_encode(['success' => true]);
+// Add your authentication logic here
+// Example: Database check, JWT validation, etc.
+if (/* your authentication check */) {
+    echo json_encode([
+        'success' => true,
+        'token' => 'your-jwt-token' // Optional: Include JWT or session token
+    ]);
 } else {
-    echo json_encode(['success' => false]);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Invalid credentials'
+    ]);
 }
 ?>
 ```
 
-Update the endpoint in `login.js`:
-
-```javascript
-const response = await fetch('auth.php', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ username, password })
-});
-```
-
 ### Command Interface Endpoint
 
-For the command interface (index.html), here's a simple PHP endpoint to handle commands:
+For the command interface (command.html), here's a secure PHP endpoint example:
 
 ```php
 <?php
 // command.php
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
+// Verify authentication
+function verifyAuth() {
+    $headers = getallheaders();
+    if (!isset($headers['Authorization'])) {
+        return false;
+    }
+    // Add your token verification logic here
+    return true;
+}
+
+if (!verifyAuth()) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Unauthorized'
+    ]);
+    exit;
+}
 
 $data = json_decode(file_get_contents('php://input'), true);
 
@@ -98,6 +158,7 @@ const response = await fetch('command.php', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + yourAuthToken // Add your auth token
     },
     body: JSON.stringify({ title, message })
 });
